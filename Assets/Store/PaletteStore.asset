@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edd4d6dec9974f11ba4b078ca3a0e1e, type: 3}
+  m_Name: PaletteStore
+  m_EditorClassIdentifier: 
+  _colorPalette:
+    _entries:
+      _keys:
+      - 326be6f7-e390-4d22-992d-e708c5026f6f
+      _values:
+      - _id: 326be6f7-e390-4d22-992d-e708c5026f6f
+        _name:
+          _value: Normal
+        _values:
+          _keys:
+          - 37ed66c5-f132-4045-8b85-e05607ed4ed8
+          - 69a968ee-d0d9-41f0-b718-1073ebb6ba84
+          - 8e47ffbf-163f-43fc-8f77-a6bdc42fcbef
+          _values:
+          - _value: {r: 0.16078432, g: 0.5137255, b: 0.7176471, a: 1}
+          - _value: {r: 1, g: 1, b: 1, a: 1}
+          - _value: {r: 0.009433985, g: 0, b: 0, a: 1}
+    _themes:
+      _keys:
+      - 37ed66c5-f132-4045-8b85-e05607ed4ed8
+      - 69a968ee-d0d9-41f0-b718-1073ebb6ba84
+      - 8e47ffbf-163f-43fc-8f77-a6bdc42fcbef
+      _values:
+      - _id: 37ed66c5-f132-4045-8b85-e05607ed4ed8
+        _name:
+          _value: Default
+      - _id: 69a968ee-d0d9-41f0-b718-1073ebb6ba84
+        _name:
+          _value: Light
+      - _id: 8e47ffbf-163f-43fc-8f77-a6bdc42fcbef
+        _name:
+          _value: Dark
+    _entryOrders:
+      _ids:
+      - 326be6f7-e390-4d22-992d-e708c5026f6f
+    _themeOrders:
+      _ids:
+      - 37ed66c5-f132-4045-8b85-e05607ed4ed8
+      - 69a968ee-d0d9-41f0-b718-1073ebb6ba84
+      - 8e47ffbf-163f-43fc-8f77-a6bdc42fcbef
+    _activeThemeId: 37ed66c5-f132-4045-8b85-e05607ed4ed8
+  _gradientPalette:
+    _entries:
+      _keys: []
+      _values: []
+    _themes:
+      _keys:
+      - 1e9b3671-6467-4f7a-9f32-bcfb815cc0c4
+      _values:
+      - _id: 1e9b3671-6467-4f7a-9f32-bcfb815cc0c4
+        _name:
+          _value: Default
+    _entryOrders:
+      _ids: []
+    _themeOrders:
+      _ids:
+      - 1e9b3671-6467-4f7a-9f32-bcfb815cc0c4
+    _activeThemeId: 1e9b3671-6467-4f7a-9f32-bcfb815cc0c4
+  _characterStylePalette:
+    _entries:
+      _keys: []
+      _values: []
+    _themes:
+      _keys:
+      - e4b818c4-58e5-4436-bf95-5a8e8972a6e2
+      _values:
+      - _id: e4b818c4-58e5-4436-bf95-5a8e8972a6e2
+        _name:
+          _value: Default
+    _entryOrders:
+      _ids: []
+    _themeOrders:
+      _ids:
+      - e4b818c4-58e5-4436-bf95-5a8e8972a6e2
+    _activeThemeId: e4b818c4-58e5-4436-bf95-5a8e8972a6e2
+  _characterStyleTMPPalette:
+    _entries:
+      _keys: []
+      _values: []
+    _themes:
+      _keys:
+      - cf99b53f-8d3a-40d3-97c9-244027be2f04
+      _values:
+      - _id: cf99b53f-8d3a-40d3-97c9-244027be2f04
+        _name:
+          _value: Default
+    _entryOrders:
+      _ids: []
+    _themeOrders:
+      _ids:
+      - cf99b53f-8d3a-40d3-97c9-244027be2f04
+    _activeThemeId: cf99b53f-8d3a-40d3-97c9-244027be2f04
+  _missingEntryErrorLevel: 1
