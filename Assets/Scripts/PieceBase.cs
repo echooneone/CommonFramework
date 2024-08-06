@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PieceBase : MonoBehaviour
 {
-
+    [ReadOnly] 
+    public ChessboardManager.PointState PieceState;
     [ReadOnly]
     public Vector2Int Index=new (0,0);
 
@@ -16,6 +17,14 @@ public class PieceBase : MonoBehaviour
         transform.localPosition = new Vector3(point.x, point.y, transform.localPosition.z);
 
         print($"{Index.x},{(char)(Index.y + 97)}");
+    }
+    public void Move(int x,int y)
+    {
+        Index = new(x, y);
+        var point = ChessboardManager.Instance.ChessboardPoint[Index.x,Index.y];
+        transform.localPosition = new Vector3(point.x, point.y, transform.localPosition.z);
+
+        
     }
 
     [Button]
@@ -54,4 +63,5 @@ public class PieceBase : MonoBehaviour
             Move();
         }
     }
+    
 }

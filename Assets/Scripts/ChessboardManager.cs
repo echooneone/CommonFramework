@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Doozy.Runtime.Colors.Models;
 using Doozy.Runtime.Common;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class ChessboardManager : SingletonMono<ChessboardManager>
 {
     public GameObject[] PieceList;
+    public GameObject Chessboard;
     public enum  PieceName
     {
         卒,
@@ -67,5 +71,15 @@ public class ChessboardManager : SingletonMono<ChessboardManager>
                 PointStateTable[i, j] = PointState.None;
             }
         }
+    }
+    [Button]
+    public void StandardInitialize()
+    {
+        Clear();
+        foreach (GameObject piece in Chessboard.transform.Find("StandardHolder"))
+        {
+            piece.GetComponent<PieceBase>().Move(int.Parse(piece.name.First().ToString()),int.Parse((piece.name.Last()-'a').ToString()));
+        }
+        
     }
 }

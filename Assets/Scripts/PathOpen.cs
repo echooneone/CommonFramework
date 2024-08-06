@@ -20,20 +20,8 @@ public class PathOpen : MonoBehaviour
 
     private void OnClick()
     {
-        var paths = StandaloneFileBrowser.OpenFilePanel("", "",
-            new[] { new ExtensionFilter("Image Files", "png","jpg","jpeg") }, false);
-        if (paths.Length > 0)
-        {
-            StartCoroutine(OutputRoutine(new Uri(paths[0]).AbsoluteUri));
-        }
+        var paths = StandaloneFileBrowser.OpenFolderPanel("Select Folder", "", true);
     }
 
-    private IEnumerator OutputRoutine(string url)
-    {
-        var loader = new WWW(url);
-        yield return loader;
-        output.texture = loader.texture;
-        output.SetNativeSize();
-        output.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-    }
+
 }
