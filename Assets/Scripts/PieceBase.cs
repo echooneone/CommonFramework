@@ -1,30 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class PieceBase : MonoBehaviour
 {
-    [ReadOnly] 
-    public ChessboardManager.PointState PieceState;
-    [ReadOnly]
-    public Vector2Int Index=new (0,0);
+    [ReadOnly] public ChessboardManager.PointState PieceState;
+    [ReadOnly] public Vector2Int Index = new(0, 0);
+    private GameObject selectedEffect;
+    
+    private void Start()
+    {
+        selectedEffect = Instantiate(Resources.Load<GameObject>("SelectedPoint"),transform);
+        selectedEffect.SetActive(false);
+    }
 
     [Button]
     public void Move()
     {
-        var point = ChessboardManager.Instance.ChessboardPoint[Index.x,Index.y];
+        var point = ChessboardManager.Instance.ChessboardPoint[Index.x, Index.y];
         transform.localPosition = new Vector3(point.x, point.y, transform.localPosition.z);
 
         print($"{Index.x},{(char)(Index.y + 97)}");
     }
-    public void Move(int x,int y)
-    {
-        Index = new(x, y);
-        var point = ChessboardManager.Instance.ChessboardPoint[Index.x,Index.y];
-        transform.localPosition = new Vector3(point.x, point.y, transform.localPosition.z);
 
-        
+    public bool Move(int x, int y)
+    {
+        if (ChessboardManager.Instance.PointStateTable[x, y] != null &&
+            ChessboardManager.Instance.PointStateTable[x, y].GetComponent<PieceBase>().PieceState == PieceState)
+            return false;
+        Index = new(x, y);
+        var point = ChessboardManager.Instance.ChessboardPoint[Index.x, Index.y];
+        transform.localPosition = new Vector3(point.x, point.y, transform.localPosition.z);
+        return true;
     }
 
     [Button]
@@ -36,6 +43,7 @@ public class PieceBase : MonoBehaviour
             Move();
         }
     }
+
     [Button]
     public void MoveDown()
     {
@@ -45,6 +53,7 @@ public class PieceBase : MonoBehaviour
             Move();
         }
     }
+
     [Button]
     public void MoveLeft()
     {
@@ -54,6 +63,7 @@ public class PieceBase : MonoBehaviour
             Move();
         }
     }
+
     [Button]
     public void MoveRight()
     {
@@ -63,5 +73,14 @@ public class PieceBase : MonoBehaviour
             Move();
         }
     }
-    
+
+    public void OnSelected()
+    {
+        selectedEffect.SetActive(true);
+    }
+
+    public void EndSelected()
+    {
+        selectedEffect.SetActive(false);
+    }
 }

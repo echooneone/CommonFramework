@@ -6,5 +6,8 @@ using UnityEngine;
 
 public class MainSystem : MonoBehaviour
 {
-
+    private void Start()
+    {
+        
+    }
 }
