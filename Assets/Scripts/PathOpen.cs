@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Doozy.Runtime.Common.Extensions;
+
 using Doozy.Runtime.UIManager.Components;
 using SFB;
 using UnityEngine;
@@ -21,7 +18,8 @@ public class PathOpen : MonoBehaviour
     private void OnClick()
     {
         var paths = StandaloneFileBrowser.OpenFolderPanel("Select Folder", "", true);
+        print(paths[0]);
     }
-
+    
 
 }

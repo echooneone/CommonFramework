@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
 using Doozy.Runtime.Colors.Models;
 using Doozy.Runtime.Common;
 using LitJson;
@@ -14,25 +15,27 @@ public class ChessboardManager : SingletonMono<ChessboardManager>
 {
     public GameObject[] PieceList;
     public GameObject Chessboard;
-    private ObjectPool<GameObject> movablePointPool;
-   
-    public List<List<int>> tempIndex;
+    public ObjectPool<GameObject> MovablePointPool;
+    
+    private List<List<int>> tempIndex;
+    public CinemachineVirtualCamera CurrentVirtualCamera;
+    private bool redView;
     public enum PieceName
     {
-        卒,//0
-        红炮,//1
-        红车,//2
-        红马,//3
-        相,//4
-        红士,//5
-        帅,//6
-        兵,//7
-        黑炮,//8
-        黑车,//9
-        黑马,//10
-        象,//11
-        黑士,//12
-        将,//13
+        卒, //0
+        红炮, //1
+        红车, //2
+        红马, //3
+        相, //4
+        红士, //5
+        帅, //6
+        兵, //7
+        黑炮, //8
+        黑车, //9
+        黑马, //10
+        象, //11
+        黑士, //12
+        将, //13
     }
 
     public PieceBase SelectedPiece;
@@ -78,16 +81,16 @@ public class ChessboardManager : SingletonMono<ChessboardManager>
     private void Start()
     {
         TextAsset jsonTextAsset = Resources.Load<TextAsset>("Standard");
-        tempIndex=JsonMapper.ToObject<List<List<int>>>(jsonTextAsset.text);
+        tempIndex = JsonMapper.ToObject<List<List<int>>>(jsonTextAsset.text);
 /*后三个函数解释：启用安全检查为true，默认池容量10，最大池容量1000*/
-        movablePointPool =
+        MovablePointPool =
             new ObjectPool<GameObject>(createFunc, actionOnGet, actionOnRelease, actionOnDestroy, true, 17, 100);
         StandardInitialize();
     }
 
     GameObject createFunc()
     {
-        var obj = Instantiate(Resources.Load<GameObject>("MovablePoint"), transform);
+        var obj = Instantiate(Resources.Load<GameObject>("MovablePoint"), Chessboard.transform);
         return obj;
     }
 
@@ -112,35 +115,43 @@ actionOnRelease:在实例返回到池时调用，可以用于清理或者禁用�
 
     public void Clear()
     {
-        for (int i = 0; i < 10; i++)
+        for (int x = 0; x < 10; x++)
         {
-            for (int j = 0; j < 9; j++)
+            for (int y = 0; y < 9; y++)
             {
-                PointStateTable[i, j] = null;
+                PointStateTable[x, y] = null;
             }
+        }
+
+        foreach (Transform obj in Chessboard.transform)
+        {
+            Destroy(obj.gameObject);
         }
     }
 
+    /// <summary>
+    /// 生成标准盘
+    /// </summary>
     [Button]
     public void StandardInitialize()
     {
         Clear();
-        foreach (Transform piece in Chessboard.transform.Find("StandardHolder"))
+        for (int x = 0; x < 10; x++)
         {
-            piece.gameObject.SetActive(true);
-            Vector2Int index = new Vector2Int(int.Parse(piece.name.First().ToString()), piece.name.Last() - 'a');
-            piece.GetComponent<PieceBase>().Move(index.x, index.y);
-            if (index.x < 5)
+            for (int y = 0; y < 9; y++)
             {
-                PointStateTable[index.x, index.y] = piece.gameObject;
-                piece.GetComponent<PieceBase>().PieceState = PointState.Black;
-            }
-            else
-            {
-                PointStateTable[index.x, index.y] = piece.gameObject;
-                piece.GetComponent<PieceBase>().PieceState = PointState.Red;
+                if (tempIndex[x][y] >= 0)
+                {
+                    GameObject pieceObj = Instantiate(PieceList[tempIndex[x][y]], Chessboard.transform);
+                    PieceBase piece = pieceObj.GetComponent<PieceBase>();
+                    piece.Move(x, y);
+                    piece.PieceState = x < 5 ? PointState.Black : PointState.Red;
+                    PointStateTable[x, y] = pieceObj;
+                }
             }
         }
+        ToRedView();
+        
     }
 
     private void Update()
@@ -155,13 +166,60 @@ actionOnRelease:在实例返回到池时调用，可以用于清理或者禁用�
                 {
                     if (SelectedPiece != null)
                     {
+                        if(hit.collider.gameObject.GetComponent<PieceBase>()==SelectedPiece)
+                            return;
                         SelectedPiece.GetComponent<PieceBase>().EndSelected();
                     }
 
                     SelectedPiece = hit.collider.gameObject.GetComponent<PieceBase>();
                     SelectedPiece.OnSelected();
                 }
+                else if(hit.collider.GetComponent<MovablePoint>())
+                {
+                    hit.collider.GetComponent<MovablePoint>().OnChick();
+                }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            ChangeView();
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    [Button]
+    public void ReadJson(int x, int y)
+    {
+        print(tempIndex[x][y]);
+        
+        
+    }
+    [Button]
+    public void ChangeView()
+    {
+        if (redView)
+        {
+            ToBlackView();
+        }
+        else
+        {
+            ToRedView();
+        }
+    }
+
+    private void ToRedView()
+    {
+        CurrentVirtualCamera.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition = 0;
+        redView = true;
+    }
+    private void ToBlackView()
+    {
+        CurrentVirtualCamera.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition = CurrentVirtualCamera.GetCinemachineComponent<CinemachineTrackedDolly>().m_Path.MaxPos;
+        redView = false;
     }
 }

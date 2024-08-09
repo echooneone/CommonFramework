@@ -32,11 +32,14 @@ MonoBehaviour:
     assemblyNames:
     - Assembly-CSharp
     - Assembly-CSharp-firstpass
+    - Cinemachine
     - DoozyRuntime
     - IngameDebugConsole.Runtime
     - Nobi.UiRoundedCorners
     - Tayx.Graphy
     - uPalette
+    - XCharts.Examples
+    - XCharts.Runtime
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

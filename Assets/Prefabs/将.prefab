@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8547581478455497254}
   - component: {fileID: 6011569441703219013}
   - component: {fileID: 8440215924502321738}
-  - component: {fileID: 9173613805754412012}
+  - component: {fileID: 8705690990811929062}
   - component: {fileID: -8579430369409855018}
   m_Layer: 0
   m_Name: "\u5C06"
@@ -86,7 +86,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &9173613805754412012
+--- !u!114 &8705690990811929062
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,11 +95,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 675909867567153668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e1ec22f3657e4c48a457133ec17472c, type: 3}
+  m_Script: {fileID: 11500000, guid: 954e0c0b4c23bc141a82de47280e3f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PieceState: 0
-  Index: {x: 0, y: 4}
+  Index: {x: 0, y: 0}
+  MovablePoints: []
 --- !u!65 &-8579430369409855018
 BoxCollider:
   m_ObjectHideFlags: 0
