@@ -1,0 +1,21 @@
+{
+  "ShopId": "IB BeiJing Wangfujing",
+  "chapter1": [
+    "Manufacture"
+  ],
+  "chapter2": [
+    "Step1 R&D","Step1 DESIGN"
+  ],
+  "chapter3": [
+    "Step2 BLANKING"
+  ],
+  "chapter4": [
+    "Step3 PAD-PRINTING","Step3 BEVELING","Step3 POLISHING"
+  ],
+  "chapter5": [
+    "Step4 RESTORATION"
+  ],
+  "chapter6": [
+    "Step5 ENAMELING","Step5 ENGRAVING","Step5 GEM-SETTING"
+  ]
+}
